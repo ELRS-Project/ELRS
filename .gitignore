@@ -193,3 +193,6 @@ __marimo__/
 # Sysfiles
 .DS_Store
 Thumbs.db
+
+# Project files
+ELRS/media/

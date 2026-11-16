@@ -37,7 +37,30 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'django_filters',
+    'apps.accounts',
+    'apps.assets',
+    'apps.licenses',
+    'apps.employees',
+    'apps.assignments',
+    'apps.maintenance',
+    'apps.api',
 ]
+
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+AUTH_USER_MODEL = 'accounts.User'
+
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'login'
+
+LANGUAGE_CODE = 'pl'
+TIME_ZONE = 'Europe/Warsaw'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -49,7 +72,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'ELRS.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -65,8 +88,8 @@ TEMPLATES = [
         },
     },
 ]
-
-WSGI_APPLICATION = 'ELRS.wsgi.application'
+TEMPLATES[0]['DIRS'] = [BASE_DIR / 'templates']
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
