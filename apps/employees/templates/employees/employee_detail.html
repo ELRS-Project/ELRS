@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ employee.first_name }} {{ employee.last_name }}</h1>
+
+    <div>
+        <p><strong>Email:</strong> {{ employee.email|default:"—" }}</p>
+        <p><strong>Phone:</strong> {{ employee.phone|default:"—" }}</p>
+        <p><strong>Position:</strong> {{ employee.position }}</p>
+        <p><strong>Department:</strong> {{ employee.department }}</p>
+        <p><strong>Employment date:</strong> {{ employee.employment_date|default:"—" }}</p>
+
+        <p>
+            <strong>Status:</strong>
+            {% if employee.is_active %}
+                Active
+            {% else %}
+                Inactive
+            {% endif %}
+        </p>
+
+        <p>
+            <strong>Account:</strong>
+            {% if employee.user %}
+                {{ employee.user }}
+            {% else %}
+                No linked account
+            {% endif %}
+        </p>
+    </div>
+
+    <a href="{% url 'employees:employee_edit' pk=employee.pk %}">
+        Edit employee
+    </a>
+    <a href="{% url 'employees:employee_delete' pk=employee.pk %}">
+        Delete employee
+    </a>
+
+    <a href="{% url 'employees:employee_list' %}">
+        Back to employees
+    </a>
+</div>
+{% endblock %}

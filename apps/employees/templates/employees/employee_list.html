@@ -68,7 +68,11 @@
         <tbody>
             {% for employee in page_obj %}
                 <tr>
-                    <td>{{ employee.first_name }} {{ employee.last_name }}</td>
+                    <td>
+                        <a href="{% url 'employees:employee_detail' pk=employee.pk %}">
+                            {{ employee.first_name }} {{ employee.last_name }}
+                        </a>
+                    </td>
                     <td>{{ employee.email|default:"—" }}</td>
                     <td>{{ employee.position }}</td>
                     <td>{{ employee.department }}</td>
