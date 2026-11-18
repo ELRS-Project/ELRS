@@ -14,18 +14,18 @@ class CustomLoginView(LoginView):
 
 class CustomLogoutView(LogoutView):
     """Log out the user via POST request and redirect to the login page."""
-    next_page = reverse_lazy('login')
+    next_page = reverse_lazy('accounts:login')
 
 
 class DashboardView(LoginRequiredMixin, TemplateView):
     """Render the main system dashboard for authenticated users."""
-    template_name = 'dashboard/index.html'
+    template_name = 'dashboard/dashboard.html'
 
 class RegisterView(CreateView):
     """Handle new user registration and automatically log them in."""
     form_class = CustomUserCreationForm
     template_name = 'registration/register.html'
-    success_url = reverse_lazy('dashboard')
+    success_url = reverse_lazy('accounts:dashboard')
 
     def form_valid(self, form):
         response = super().form_valid(form)
@@ -35,8 +35,8 @@ class RegisterView(CreateView):
 class CustomPasswordChangeView(LoginRequiredMixin, PasswordChangeView):
     """Allow authenticated users to change their own password."""
     template_name = 'registration/password_change.html'
-    success_url = reverse_lazy('dashboard')
+    success_url = reverse_lazy('accounts:dashboard')
 
 class DashboardView(LoginRequiredMixin, TemplateView):
     """Render the main system dashboard."""
-    template_name = 'dashboard/index.html'
+    template_name = 'dashboard/dashboard.html'

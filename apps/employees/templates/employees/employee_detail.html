@@ -1,44 +1,128 @@
 {% extends "base.html" %}
 
+{% block title %}{{ employee.first_name }} {{ employee.last_name }} - ELRS{% endblock %}
+
 {% block content %}
-<div class="container">
-    <h1>{{ employee.first_name }} {{ employee.last_name }}</h1>
 
+<div class="py-4">
+
+<!-- Page header -->
+<div class="d-flex justify-content-between align-items-center mb-4">
     <div>
-        <p><strong>Email:</strong> {{ employee.email|default:"—" }}</p>
-        <p><strong>Phone:</strong> {{ employee.phone|default:"—" }}</p>
-        <p><strong>Position:</strong> {{ employee.position }}</p>
-        <p><strong>Department:</strong> {{ employee.department }}</p>
-        <p><strong>Employment date:</strong> {{ employee.employment_date|default:"—" }}</p>
-
-        <p>
-            <strong>Status:</strong>
-            {% if employee.is_active %}
-                Active
-            {% else %}
-                Inactive
-            {% endif %}
-        </p>
-
-        <p>
-            <strong>Account:</strong>
-            {% if employee.user %}
-                {{ employee.user }}
-            {% else %}
-                No linked account
-            {% endif %}
-        </p>
+        <h2 class="mb-1">{{ employee.first_name }} {{ employee.last_name }}</h2>
+        <p class="text-muted mb-0">Employee details</p>
     </div>
 
-    <a href="{% url 'employees:employee_edit' pk=employee.pk %}">
-        Edit employee
-    </a>
-    <a href="{% url 'employees:employee_delete' pk=employee.pk %}">
-        Delete employee
-    </a>
+    <div class="d-flex gap-2">
+        <a
+            href="{% url 'employees:employee_edit' pk=employee.pk %}"
+            class="btn btn-primary"
+        >
+            Edit employee
+        </a>
 
-    <a href="{% url 'employees:employee_list' %}">
+        <a
+            href="{% url 'employees:employee_delete' pk=employee.pk %}"
+            class="btn btn-outline-danger"
+        >
+            Delete employee
+        </a>
+    </div>
+</div>
+
+<div class="row g-4">
+
+    <!-- Personal information -->
+    <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0">Personal information</h5>
+            </div>
+
+            <div class="card-body">
+                <dl class="row mb-0">
+
+                    <dt class="col-sm-5 text-muted">First name</dt>
+                    <dd class="col-sm-7">{{ employee.first_name }}</dd>
+
+                    <dt class="col-sm-5 text-muted">Last name</dt>
+                    <dd class="col-sm-7">{{ employee.last_name }}</dd>
+
+                    <dt class="col-sm-5 text-muted">Email</dt>
+                    <dd class="col-sm-7">{{ employee.email|default:"—" }}</dd>
+
+                    <dt class="col-sm-5 text-muted">Phone</dt>
+                    <dd class="col-sm-7">{{ employee.phone|default:"—" }}</dd>
+
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <!-- Employment information -->
+    <div class="col-lg-6">
+        <div class="card shadow-sm h-100">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0">Employment information</h5>
+            </div>
+
+            <div class="card-body">
+                <dl class="row mb-0">
+
+                    <dt class="col-sm-5 text-muted">Position</dt>
+                    <dd class="col-sm-7">{{ employee.position|default:"—" }}</dd>
+
+                    <dt class="col-sm-5 text-muted">Department</dt>
+                    <dd class="col-sm-7">{{ employee.department|default:"—" }}</dd>
+
+                    <dt class="col-sm-5 text-muted">Employment date</dt>
+                    <dd class="col-sm-7">{{ employee.employment_date|date:"d.m.Y"|default:"—" }}</dd>
+
+                    <dt class="col-sm-5 text-muted">Status</dt>
+                    <dd class="col-sm-7">
+                        {% if employee.is_active %}
+                            <span class="badge bg-success">Active</span>
+                        {% else %}
+                            <span class="badge bg-secondary">Inactive</span>
+                        {% endif %}
+                    </dd>
+
+                </dl>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account information -->
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-header bg-white py-3">
+                <h5 class="mb-0">Account information</h5>
+            </div>
+
+            <div class="card-body">
+                {% if employee.user %}
+                    <p class="mb-0">
+                        <strong>Linked account:</strong> {{ employee.user }}
+                    </p>
+                {% else %}
+                    <p class="text-muted mb-0">
+                        No user account is linked to this employee.
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Navigation -->
+<div class="mt-4">
+    <a
+        href="{% url 'employees:employee_list' %}"
+        class="btn btn-outline-secondary"
+    >
         Back to employees
     </a>
 </div>
-{% endblock %}
+
+</div> {% endblock %}

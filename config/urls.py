@@ -8,4 +8,5 @@ urlpatterns = [
     #path("", views.dashboard, name="dashboard"),
     path('admin/', admin.site.urls),
     path("employees/", include("apps.employees.urls")),
+    #path("accounts/", include("apps.accounts.urls")),
 ]

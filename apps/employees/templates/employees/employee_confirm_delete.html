@@ -1,0 +1,73 @@
+ {% extends "base.html" %}
+
+{% block title %}Delete employee - ELRS{% endblock %}
+
+{% block content %}
+<div class="py-5">
+
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+
+            <div class="card shadow-sm border-danger">
+
+                <div class="card-header bg-danger text-white py-3">
+                    <h5 class="mb-0">Confirm employee deletion</h5>
+                </div>
+
+                <div class="card-body p-4 text-center">
+
+                    <div class="mb-3">
+                        <span class="badge bg-danger fs-6">Warning</span>
+                    </div>
+
+                    <h4 class="mb-3">Are you sure?</h4>
+
+                    <p class="text-muted">
+                        You are about to permanently delete the following employee:
+                    </p>
+
+                    <div class="bg-light rounded p-3 mb-4">
+                        <h5 class="mb-1">
+                            {{ employee.first_name }} {{ employee.last_name }}
+                        </h5>
+
+                        <p class="text-muted mb-0">
+                            {{ employee.position|default:"No position specified" }}
+                        </p>
+
+                        {% if employee.email %}
+                            <small class="text-muted">{{ employee.email }}</small>
+                        {% endif %}
+                    </div>
+
+                    <p class="text-danger small">
+                        This action cannot be undone.
+                    </p>
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="d-flex justify-content-center gap-2">
+
+                            <a
+                                href="{% url 'employees:employee_detail' pk=employee.pk %}"
+                                class="btn btn-outline-secondary"
+                            >
+                                Cancel
+                            </a>
+
+                            <button type="submit" class="btn btn-danger">
+                                Confirm deletion
+                            </button>
+
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+{% endblock %}
