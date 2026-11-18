@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="{% url 'dashboard' %}">ELRS</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            {% if user.is_authenticated %}
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a></li>
+                    <!-- Links for future modules (Employees, Assets, Licenses, etc.) will be added here -->
+                </ul>
+
+                <div class="d-flex align-items-center gap-3">
+                    <span class="navbar-text text-white">
+                        {{ user.username }} <span class="badge bg-secondary">{{ user.get_role_display }}</span>
+                    </span>
+                    <a href="{% url 'password_change' %}" class="btn btn-outline-secondary btn-sm text-white">Change password</a>
+                    <form method="post" action="{% url 'logout' %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-outline-light btn-sm">Log out</button>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</nav>
